@@ -1,0 +1,6 @@
+.nav-actions{
+    transition: all ease-in-out 0.3s !important;
+}
+.nav-actions:hover{
+    background: black !important;
+}
