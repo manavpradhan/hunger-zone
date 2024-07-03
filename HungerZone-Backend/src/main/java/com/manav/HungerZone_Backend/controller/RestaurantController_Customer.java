@@ -2,7 +2,6 @@ package com.manav.HungerZone_Backend.controller;
 
 import com.manav.HungerZone_Backend.dto.RestaurantDto;
 import com.manav.HungerZone_Backend.exception.RestaurantException;
-import com.manav.HungerZone_Backend.exception.UserException;
 import com.manav.HungerZone_Backend.model.Restaurant;
 import com.manav.HungerZone_Backend.model.User;
 import com.manav.HungerZone_Backend.service.interfaces.RestaurantService;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/restaurant")
-public class RestaurantCustomerController {
+public class RestaurantController_Customer {
 
     @Autowired
     private RestaurantService restaurantService;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/restaurant")
-public class RestaurantOwnerController {
+public class RestaurantController_Owner {
 
     @Autowired
     private RestaurantService restaurantService;

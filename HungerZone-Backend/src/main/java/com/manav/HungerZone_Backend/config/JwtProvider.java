@@ -41,7 +41,7 @@ public class JwtProvider {
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
-        Set<String> auths=new HashSet<>();
+        Set<String> auths = new HashSet<>();
 
         for(GrantedAuthority authority:collection) {
             auths.add(authority.getAuthority());
