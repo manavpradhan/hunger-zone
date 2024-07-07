@@ -12,6 +12,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation, useNavigate } from "react-router-dom";
+import Auth from "../../pages/auth/Auth";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="px-5 z-50 py-[.8rem] bg-[#e91e63]  lg:px-20 flex justify-between">
+    <div className="sticky top-0 px-5 z-50 py-[.8rem] bg-[#e91e63]  lg:px-20 flex justify-between">
       <div
         onClick={navigateToHome}
         className="lg:mr-10 cursor-pointer flex items-center space-x-4"
@@ -71,7 +72,10 @@ const Navbar = () => {
               </Avatar>
             </span>
           ) : ( */}
-          <IconButton className="nav-actions" onClick={handleOpenMenu}>
+          <IconButton
+            className="nav-actions"
+            onClick={() => navigate("account/login")}
+          >
             <PersonIcon sx={{ fontSize: "2rem" }} />
           </IconButton>
           {/* )} */}
@@ -84,16 +88,23 @@ const Navbar = () => {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem>Profile</MenuItem>
+            <MenuItem onClick={() => navigate("/my-profile")}>Profile</MenuItem>
             <MenuItem>Logout</MenuItem>
           </Menu>
         </div>
-        <IconButton className="nav-actions" onClick={() => navigate("/cart")}>
-          <Badge color="black" badgeContent={"0"}>
-            <ShoppingCartIcon className="text-4xl" sx={{ fontSize: "2rem" }} />
-          </Badge>
-        </IconButton>
+
+        {false && (
+          <IconButton className="nav-actions" onClick={() => navigate("/cart")}>
+            <Badge color="black" badgeContent={"0"}>
+              <ShoppingCartIcon
+                className="text-4xl"
+                sx={{ fontSize: "2rem" }}
+              />
+            </Badge>
+          </IconButton>
+        )}
       </div>
+      <Auth />
     </div>
   );
 };

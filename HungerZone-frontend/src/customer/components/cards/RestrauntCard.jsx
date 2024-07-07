@@ -18,7 +18,7 @@ const RestrauntCard = ({ item, index }) => {
     <Card
       className="m-4 w-[18rem] restraunt-card"
       onClick={() =>
-        navigate(`restraunt/${item.city}/${item.name}/${index + 1}`)
+        navigate(`/restraunt/${item.city}/${item.name}/${index + 1}`)
       }
     >
       <CardMedia

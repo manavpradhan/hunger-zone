@@ -6,8 +6,6 @@ import MainRouter from "./routes/MainRouter.jsx";
 import Navbar from "./customer/components/navbar/Navbar.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />

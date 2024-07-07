@@ -1,36 +1,18 @@
 import React, { useState } from "react";
-import CartItemCard from "../../components/cards/CartItemCard";
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  Grid,
-  Modal,
-  TextField,
-} from "@mui/material";
-import AddressCard from "../../components/cards/AddressCard";
+import AddressCard from "../../../components/cards/AddressCard";
+import { Box, Button, Card, Grid, Modal, TextField } from "@mui/material";
 import { AddLocation } from "@mui/icons-material";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const item = {
-  name: "Biriyani",
-  price: 299,
-  image:
-    "https://cdn.pixabay.com/photo/2022/06/14/18/57/chicken-biryani-7262650_640.jpg",
-  description: "description",
-  quantity: 3,
-};
-
-const address = [];
-
 const initialValues = {
-  streetAddress: "",
-  city: "",
-  pincode: "",
-  state: "",
+  streetAddress: "123, sector 12",
+  city: "Dwarka",
+  postalCode: "110045",
+  state: "New Delhi",
 };
+
+const myAddress = [];
 
 const validationSchema = Yup.object().shape({
   streetAddress: Yup.string().required("Street Address is required"),
@@ -51,16 +33,11 @@ const style = {
   boxShadow: 24,
   outline: "none",
   p: 4,
-  borderRadius: "10px",
 };
 
-const Cart = () => {
+const MyAddresses = () => {
   const [selectedAddress, setSelectedAddress] = useState("card-0");
   const [openModal, setOpenModal] = useState(false);
-
-  const handleCreateOrder = () => {
-    alert("order created");
-  };
 
   const handleSubmitAddress = (values, { resetForm }) => {
     const data = {
@@ -70,110 +47,48 @@ const Cart = () => {
       postalCode: values.pincode,
       type: values.type,
     };
-    address.push(data);
+    myAddress.push(data);
 
     setOpenModal(false);
   };
 
   return (
     <>
-      <main className="lg:flex justify-between relative p-0 m-0 h-[100%]">
-        <section className="lg:w-[25%] space-y-6 lg:min-h-screen mt-10 overflow-auto h-[80%]">
-          <h1 className="text-4xl text-center mb-10">Your Cart Items</h1>
-          {/* {cart.cartItems.map((item, i) => (
-              <CartItemCard item={item} />
-            ))} */}
-          <CartItemCard item={item} />
-          <CartItemCard item={item} />
-          <CartItemCard item={item} />
-          <CartItemCard item={item} />
-        </section>
-        <Divider orientation="vertical" flexItem />
-        <section className="lg:w-[50%] flex flex-col justify-between px-5 mt-10 h-[80vh]">
-          <div className="relative">
-            <h1 className=" text-4xl text-center mb-10">
-              Choose Delivery Address
-            </h1>
-            <div className="flex gap-5 flex-wrap justify-center mt-16">
-              {address?.map((item, idx) => {
-                return (
-                  <AddressCard
-                    key={idx}
-                    idx={idx}
-                    item={item}
-                    selectedAddress={selectedAddress}
-                    setSelectedAdress={setSelectedAddress}
-                  />
-                );
-              })}
-              <Card className="flex space-x-5 w-64 p-5">
-                <AddLocation />
-                <div className="space-y-3 text-gray-500 flex flex-col gap-5 justify-between">
-                  <h1 className="font-semibold text-lg text-white">
-                    Add New Address
-                  </h1>
+      <div className="lg:w-[80%] min-h-[80vh]">
+        <h1 className="py-10 text-2xl text-center font-semibold">
+          My Addresses
+        </h1>
+        <div className="w-[80%] flex flex-wrap justify-center gap-8 m-auto">
+          {[1, 1, 1, 1, 1].map((item, idx) => {
+            return (
+              <AddressCard
+                key={idx}
+                idx={idx}
+                item={initialValues}
+                selectedAddress={selectedAddress}
+                setSelectedAdress={setSelectedAddress}
+              />
+            );
+          })}
+          <Card className="flex space-x-5 w-64 p-5">
+            <AddLocation />
+            <div className="space-y-3 text-gray-500 flex flex-col gap-5 justify-between">
+              <h1 className="font-semibold text-lg text-white">
+                Add New Address
+              </h1>
 
-                  <Button
-                    variant="contained"
-                    className="w-full"
-                    color="warning"
-                    onClick={() => setOpenModal(true)}
-                  >
-                    Add
-                  </Button>
-                </div>
-              </Card>
+              <Button
+                variant="contained"
+                className="w-full"
+                color="warning"
+                onClick={() => setOpenModal(true)}
+              >
+                Add
+              </Button>
             </div>
-          </div>
-          <div className="flex items-center justify-center">
-            <Button
-              variant="outlined"
-              className="w-[20%] h-[4rem]"
-              sx={{
-                background: "#e91e63",
-                ":hover": { background: "#ce1f59" },
-                color: "white",
-                wordSpacing: "5px",
-                fontSize: "1.2rem",
-              }}
-              onClick={() => handleCreateOrder()}
-            >
-              Place Order
-            </Button>
-          </div>
-        </section>
-        <Divider orientation="vertical" flexItem />
-        <section className="lg:w-[25%] space-y-6 lg:min-h-screen mt-10 overflow-auto">
-          <h1 className="text-4xl text-center mb-10">Bill Details</h1>
-          <div className="billDetails px-5 text-sm ">
-            <div className="space-y-3">
-              <div className="flex justify-between text-gray-400">
-                <p>Item Total</p>
-                {/* <p>₹{cartTotal(cart.cartItems)}</p> */}
-                <p>₹{"Total AMount"}</p>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <p>Deliver Fee</p>
-                <p>₹21</p>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <p>Plateform Fee</p>
-                <p>₹5</p>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <p>GST and Restaurant Charges</p>
-                <p>₹33</p>
-              </div>
-              <Divider />
-              <div className="flex justify-between text-gray-400">
-                <p>Total Pay</p>
-                {/* <p>₹{cartTotal(cart.cartItems)+33}</p> */}
-                <p>₹{"total amount + 33"}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+          </Card>
+        </div>
+      </div>
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box sx={style}>
           <Formik
@@ -271,4 +186,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default MyAddresses;
